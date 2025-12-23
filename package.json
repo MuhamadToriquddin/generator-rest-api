@@ -1,0 +1,33 @@
+{
+  "name": "generator-rest-api",
+  "version": "1.0.0",
+  "description": "This project is used to generate REST API minimum structure and can simplify the backend dev to start a new REST API project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev":"tsx src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MuhamadToriquddin/generator-rest-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MuhamadToriquddin/generator-rest-api/issues"
+  },
+  "homepage": "https://github.com/MuhamadToriquddin/generator-rest-api#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "inquirer": "^13.1.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.9",
+    "@types/node": "^25.0.3"
+  }
+}
