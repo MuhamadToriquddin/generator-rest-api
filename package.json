@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
-    "dev":"tsx src/main.ts"
+    "dev": "tsx src/main.ts"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MuhamadToriquddin/generator-rest-api#readme",
   "dependencies": {
+    "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "inquirer": "^13.1.0",
     "tsx": "^4.21.0",
