@@ -1,5 +1,8 @@
+#!/usr/bin/env node
+
 import { UserInput } from "./task/input-user.js"
 import { Command } from "commander"
+import { GenerateStructure } from "./task/generate-structure.js"
 
 interface commandProps{
     yes:boolean
@@ -21,7 +24,7 @@ export async function Main(){
         const answers = await UserInput(options.yes)
         console.log(answers)
         // generate structure using blueprint
-
+        GenerateStructure()
         // excecute npm init -y to create package.json
 
         // excecute npm install to install basic library and frameworks

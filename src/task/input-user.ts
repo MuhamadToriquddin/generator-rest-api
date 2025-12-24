@@ -1,6 +1,7 @@
 import inquirer from "inquirer";
 import path from "node:path";
 import process from "node:process";
+import { GetCurrentPath } from "../lib/getCurrentPath.js";
 
 interface userInputProps {
   projectName: string;
@@ -11,7 +12,7 @@ interface userInputProps {
 }
 
 export async function UserInput(skip: boolean = false) {
-  const currentPath = process.cwd();
+  const currentPath = GetCurrentPath()
   const folderName = path.basename(currentPath);
   if (skip == true) {
     return {
