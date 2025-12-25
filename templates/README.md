@@ -23,5 +23,3 @@
 
 Install the CLI globally via NPM:
 
-```bash
-npm install -g express-nexus-cli
