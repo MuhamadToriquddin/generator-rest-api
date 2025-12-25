@@ -19,7 +19,4 @@
 
 ---
 
-## 🛠️ Installation
-
-Install the CLI globally via NPM:
 
