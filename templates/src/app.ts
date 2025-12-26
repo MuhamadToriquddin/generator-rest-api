@@ -3,10 +3,10 @@ import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
 import routerExampleV1 from './routes/v1/example.route.js';
+import errorHandlerMiddleware from './midd'
 
-dotenv.config();
+
 
 const app = express();
 
@@ -21,13 +21,13 @@ const limiter = rateLimit({
   max: 100,
   message: 'Too much request, wait a minute'
 });
-app.use('/api/', limiter);
+// app.use('/api/', limiter); use if you already created route
 
 // Logging
 app.use(morgan('dev'));
 
 // Routes
-app.use('/api/v1', exampleRoutes);
+// app.use('/api/v1', exampleRoutes); use if you already have route
 
 // Middleware for Error Handling
 app.use((err, req, res, next) => {
@@ -38,6 +38,8 @@ app.use((err, req, res, next) => {
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
   });
 });
+
+export default app
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

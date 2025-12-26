@@ -1,14 +1,3 @@
-import { Router } from 'express';
-import * as exampleController from '../controllers/v1/example.controller.js';
+// Use this layer as a config for every route in your system
+// This folder is for v1 versioning from your API system
 
-const router = Router();
-
-router.get('/example', userController.getAllUsers);
-
-router.post('/example', userController.getAllUsers);
-
-router.put('/example/:id', userController.getAllUsers);
-
-router.delete('/example/:id', userController.getAllUsers);
-
-export default routerExampleV1;
