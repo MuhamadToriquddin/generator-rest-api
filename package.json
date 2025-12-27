@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && npx copyfiles -u 0 templates/**/* dist/",
+    "build": "tsc && npx copyfiles -u 0 templates/**/* dist/ && npm link",
     "start": "node dist/main.js",
     "dev": "tsx src/main.ts"
   },

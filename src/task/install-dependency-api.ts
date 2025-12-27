@@ -6,12 +6,20 @@ export async function InstallDependency (){
         await RunCommand("npm",["init","-y"])
         console.log("Successfully create file package.json")
     } catch (error) {
-        
+        console.error(error)
     }
     try {
         console.log("Installing default dependency for REST API")
         await RunCommand("npm", ["install","express","dotenv","cors","express-rate-limit","helmet","morgan"])
-        console.log("Successfully create file package.json")
+        console.log("Successfully install default dependency")
+    } catch (error) {
+        console.error(error)
+    }
+
+    try {
+        console.log("Installing type for default dependency for REST API")
+        await RunCommand("npm", ["install","@types/node","@types/dotenv","@types/cors","express-rate-limit","@types/helmet","@types/morgan"])
+        console.log("Successfully install default types dependency")
     } catch (error) {
         console.error(error)
     }

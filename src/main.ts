@@ -3,6 +3,7 @@
 import { UserInput } from "./task/input-user.js"
 import { Command } from "commander"
 import { GenerateStructure } from "./task/generate-structure.js"
+import {InstallDependency} from "./task/install-dependency-api.js"
 
 interface commandProps{
     yes:boolean
@@ -26,7 +27,7 @@ export async function Main(){
         // generate structure using blueprint
         GenerateStructure()
         // excecute npm init -y to create package.json
-
+        InstallDependency()
         // excecute npm install to install basic library and frameworks
 
         // excecute npx tsc --init
