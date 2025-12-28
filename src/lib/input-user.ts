@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import path from "node:path";
 import process from "node:process";
-import { GetCurrentPath } from "../lib/getCurrentPath.js";
+import { GetCurrentPath } from "./getCurrentPath.js";
 
 interface userInputProps {
   projectName: string;

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { UserInput } from "./task/input-user.js"
+import { UserInput } from "./lib/input-user.js"
 import { Command } from "commander"
-import { GenerateStructure } from "./task/generate-structure.js"
-import {InstallDependency} from "./task/install-dependency-api.js"
+import { GenerateStructure } from "./lib/generateStructure.js"
+import { ConfigRESTAPI } from "./lib/configRESTAPI.js"
 
 interface commandProps{
     yes:boolean
@@ -21,18 +21,19 @@ export async function Main(){
     .description("passing to question section")
     .option("-y,--yes","use default value to all questions")
     .action(async(options:commandProps)=>{
-        // user answer blueprint questions
+        // Take user requirements
         const answers = await UserInput(options.yes)
         console.log(answers)
-        // generate structure using blueprint
+
+        // Generate structure
         GenerateStructure()
-        // excecute npm init -y to create package.json
-        InstallDependency()
-        // excecute npm install to install basic library and frameworks
 
-        // excecute npx tsc --init
+        // Initialize package.json, tsconfig.json and default dependencies
+        ConfigRESTAPI()
 
-        // npm install database and orm library
+        // Config database driver (if used)
+
+        // Config ORM (if used)
 
     })
     program.parse()
