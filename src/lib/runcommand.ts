@@ -1,5 +1,4 @@
 import { spawn } from "node:child_process";
-import { inherits } from "node:util";
 
 export async function RunCommand(command:string,args:string[]): Promise<void>{
     return new Promise((resolve, reject) => {

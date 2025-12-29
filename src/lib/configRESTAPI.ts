@@ -8,6 +8,11 @@ export async function ConfigRESTAPI() {
       args: ["init", "-y"],
     },
     {
+      label: "Setup scripts",
+      command: "npm",
+      args: ["pkg", "set",`type="module"` ,`scripts.dev="tsx src/server.ts"`,`scripts.start="node dist/main.js"`,`scripts.build="tsc"`,`scripts.rebuild="rimraf dist && tsc"`],
+    },
+    {
       label: "Install default dependency for REST API",
       command: "npm",
       args: [
@@ -18,7 +23,10 @@ export async function ConfigRESTAPI() {
         "express-rate-limit",
         "helmet",
         "morgan",
-        "typescript"
+        "typescript",
+        "tsx",
+        "zod",
+        "rimraf"
       ],
     },
     {
@@ -37,13 +45,9 @@ export async function ConfigRESTAPI() {
     {
       label: "Initialize tsconfig.json",
       command: "npx",
-      args: ["tsc", "--init"],
+      args: ["tsc", "--init", "--outDir", "./dist", "--rootDir", "./src", "--verbatimModuleSyntax", "false"],
     },
-    {
-      label: "Change type in package.json into module",
-      command: "npm",
-      args: ["pkg", "set",`type="module"`],
-    },
+  
   ];
 
   for (const task of tasks) {
