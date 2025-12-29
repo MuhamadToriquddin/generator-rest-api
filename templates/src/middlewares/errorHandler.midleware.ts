@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../utils/appError.js";
 import { HttpStatus } from "../utils/httpStatusCode.js";
-import { ZodError } from 'zod';
+import { ZodError } from 'Zod';
 
 export function errorHandlerMiddleware(
   err: unknown,

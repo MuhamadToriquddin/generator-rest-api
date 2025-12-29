@@ -1,4 +1,4 @@
-import ApiError from '../utils/ApiError.js';
+import AppError from '../utils/AppError.js';
 import { Request, Response, NextFunction } from 'express';
 import { AnyZodObject } from 'zod/v3';
 
