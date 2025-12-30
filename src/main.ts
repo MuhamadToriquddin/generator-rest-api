@@ -5,7 +5,7 @@ import { Command } from "commander";
 import { GenerateStructure } from "./lib/generateStructure.js";
 import { ConfigRESTAPI } from "./lib/configRESTAPI.js";
 import { ConfigDatabaseDriver } from "./lib/configDatabase.js";
-
+import { ConfigORM } from "./lib/configORM.js";
 interface commandProps {
   yes: boolean;
 }
@@ -31,16 +31,17 @@ export async function Main() {
         console.log(answers);
 
         // Generate structure
-        GenerateStructure(answers.framework);
+        await GenerateStructure(answers.framework);
 
         // Initialize package.json, tsconfig.json and default dependencies
-        ConfigRESTAPI(answers.framework);
+        await ConfigRESTAPI(answers.framework);
 
         // Config database driver (if used)
         if (answers.db) {
-          ConfigDatabaseDriver(answers.db);
+          await ConfigDatabaseDriver(answers.db);
           if (answers.orm) {
             // Config ORM (if used)
+            await ConfigORM(answers.orm)
           }
         }
       });

@@ -1,56 +1,41 @@
+import { GetCurrentPath } from "./getCurrentPath.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { RunCommand } from "./runcommand.js";
+import { MoveTemplate } from "./moveTemplate.js";
+import { AppendText } from "./appendText.js";
 
-export async function ConfigDatabaseDriver(db: string) {
-  const tasksPostgres = [
-    {
-      label: "Initialize database driver for Postgresql",
-      command: "npm",
-      args: ["install", "pg"],
-    },
-    {
-      label: "Initialize database driver types for Mysql",
-      command: "npm",
-      args: ["install", "@/types/pg"],
-    },
-  ];
-
-  const tasksMysql = [
-    {
-      label: "Initialize database driver for Mysql",
-      command: "npm",
-      args: ["install", "mysql2"],
-    },
-  ];
-
-  switch (db) {
-    case "postgres":
-      for (const task of tasksPostgres) {
-        try {
-          console.log(`[PROCESS] ${task.label}`);
-          await RunCommand(task.command, task.args);
-          console.log(`[SUCCESS] ${task.label}`);
-        } catch (e) {
-          if (e instanceof Error){
-            throw new Error(`[FAILED] ${task.label} : ${e.message}`);  
-          }
-          throw new Error(`[FAILED] ${task.label}`);
+export async function ConfigORM(orm: string) {
+  const targetDir = GetCurrentPath();
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const setupDir = path.resolve(__dirname, `../../templates/orm/${orm}`);
+  switch (orm) {
+    case "sequelize":
+      try {
+        console.log("[PROCESS] Setup sequelize");
+        await RunCommand("npm", ["install", "sequelize"]);
+        await AppendText(`${targetDir}/.env`,`DB_DIALECT="${orm}"`)
+        await MoveTemplate(setupDir, `${targetDir}/src`);
+        console.log("[SUCCESS] Setup sequelize")
+      } catch (e) {
+        if (e instanceof Error) {
+          throw new Error(e.message);
         }
+        throw new Error("[FAILED] Setup sequelize.");
       }
-    break;
-    
-    case "mysql":
-      for (const task of tasksMysql) {
-        try {
-          console.log(`[PROCESS] ${task.label}`);
-          await RunCommand(task.command, task.args);
-          console.log(`[SUCCESS] ${task.label}`);
-        } catch (e) {
-          if (e instanceof Error){
-            throw new Error(`[FAILED] ${task.label} : ${e.message}`);  
-          }
-          throw new Error(`[FAILED] ${task.label}`);
+      break;
+    case "prisma":
+      try {
+        console.log("[PROCESS] Setup prisma");
+        await RunCommand("npm", ["install", "prisma", "@prisma/client","@prisma/adapter-pg"]);
+        await RunCommand("npx", ["prisma", "init", "--db","--output","../generated/prisma"]);
+        console.log("[SUCCESS] Setup prisma")
+      } catch (e) {
+        if (e instanceof Error) {
+          throw new Error(e.message);
         }
+        throw new Error("[FAILED] Setup prisma.");
       }
-    break;
   }
 }

@@ -1,16 +1,16 @@
-import { Sequelize } from "sequelize";
+import { Dialect,Sequelize } from "sequelize";
 
-const db_name = process.env.DB_NAME
-const username = process.env.DB_USERNAME
-const password = process.env.DB_PASSWORD
-const host = process.env.DB_HOST
-const port = process.env.DB_PORT
-const dialect = process.env.DB_DIALECT
+const db_name = process.env.DB_NAME || ""
+const username = process.env.DB_USERNAME || ""
+const password = process.env.DB_PASSWORD || ""
+const host = process.env.DB_HOST || ""
+const port = process.env.DB_PORT || ""
+const dialect = process.env.DB_DIALECT || "postgres"
 
 const sequelize = new Sequelize(db_name, username, password, {
   host: host,
-  dialect: dialect,
-  port: port,         
+  dialect: dialect as Dialect,
+  port: Number(port),         
   logging: false,     
   pool: {
     max: 5,         

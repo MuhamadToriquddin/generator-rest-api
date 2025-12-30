@@ -5,7 +5,7 @@ import { GetCurrentPath } from "./getCurrentPath.js";
 
 interface userInputProps {
   projectName: string;
-  framework:string;
+  framework: string;
   useDB: boolean;
   db?: string;
   useORM?: boolean;
@@ -13,12 +13,12 @@ interface userInputProps {
 }
 
 export async function UserInput(skip: boolean = false) {
-  const currentPath = GetCurrentPath()
+  const currentPath = GetCurrentPath();
   const folderName = path.basename(currentPath);
   if (skip == true) {
     return {
-      projectName: folderName ,
-      framework:"express",
+      projectName: folderName,
+      framework: "express",
       useDB: true,
       db: "postgres",
       useORM: true,
@@ -38,20 +38,19 @@ export async function UserInput(skip: boolean = false) {
       },
     },
     {
+      type: "select",
+      name: "framework",
+      message: "Which framework you want to use?",
+      choices: [{ name: "Express", value: "express" }],
+      default: "express",
+    },
+    {
       type: "confirm",
       name: "useDB",
       message: "Do you want to use database?",
       default: false,
     },
-    {
-      type: "select",
-      name: "framework",
-      message: "Which framework you want to use?",
-      choices: [
-        { name: "Express", value: "express" },
-      ],
-      default: "express",
-    },
+    
     {
       type: "select",
       name: "db",
@@ -76,12 +75,16 @@ export async function UserInput(skip: boolean = false) {
       name: "orm",
       when: (answers) => answers.useORM == true,
       message: "Which database you want?",
-      choices: [
-        { name: "Prisma", value: "prisma" },
-        { name: "Drizzle", value: "drizzle" },
-        { name: "Sequelize", value: "sequelize" },
-      ],
-      default: "prisma",
+      choices: (answers) => {
+        if (answers.framework == "express") {
+          return [
+            { name: "Prisma", value: "prisma" },
+            { name: "Drizzle", value: "drizzle" },
+            { name: "Sequelize", value: "sequelize" },
+          ];
+        }
+        process.exit(0)
+      },
     },
   ]);
   return answers;

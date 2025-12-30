@@ -20,6 +20,6 @@ export async function SetupSequelize() {
     if (e instanceof Error){
         throw new Error(`[FAILED] Setup sequelize : ${e.message}`)
     }
-    throw new Error(`[FAILED] An unexpected error occurred.`)
+    throw new Error(`[FAILED] Setup sequelize.`)
   }
 }
