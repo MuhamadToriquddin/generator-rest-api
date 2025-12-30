@@ -5,12 +5,12 @@ export async function ConfigDatabaseDriver(db: string) {
     {
       label: "Initialize database driver for Postgresql",
       command: "npm",
-      args: ["install", "pg", "pg-hstore"],
+      args: ["install", "pg"],
     },
     {
       label: "Initialize database driver for Mysql",
       command: "npm",
-      args: ["install", "-D", "@/types/pg"],
+      args: ["install", "@/types/pg"],
     },
   ];
 

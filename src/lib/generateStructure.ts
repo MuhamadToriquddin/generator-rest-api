@@ -5,17 +5,18 @@ import { fileURLToPath } from "node:url";
 import { RenameGitIgnore } from "./renameGitIgnore.js";
 import { RenameEnv } from "./renameEnv.js";
 
-export async function GenerateStructure(){
+export async function GenerateStructure(framework:string){
     const targetDir = GetCurrentPath()
     const __filename = fileURLToPath(import.meta.url)
     const __dirname = path.dirname(__filename)
-    const templateDir = path.resolve(__dirname,"../../templates")
-    
-    console.log("[PROCESS] Generate structure")
+    const structureDir = path.resolve(__dirname,`../../templates/structure/${framework}`)
+    const otherFilesDir = path.resolve(__dirname,`../../templates/other_file`)
     try {
-        const contents = await readdir(templateDir)
-        console.log(contents)
-        await cp(templateDir, targetDir,{
+        console.log("[PROCESS] Generate structure")
+        await cp(structureDir, targetDir,{
+            recursive:true,
+        }) 
+        await cp(otherFilesDir, targetDir,{
             recursive:true,
         }) 
         await RenameGitIgnore(targetDir)

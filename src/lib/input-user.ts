@@ -5,6 +5,7 @@ import { GetCurrentPath } from "./getCurrentPath.js";
 
 interface userInputProps {
   projectName: string;
+  framework:string;
   useDB: boolean;
   db?: string;
   useORM?: boolean;
@@ -17,6 +18,7 @@ export async function UserInput(skip: boolean = false) {
   if (skip == true) {
     return {
       projectName: folderName ,
+      framework:"express",
       useDB: true,
       db: "postgres",
       useORM: true,
@@ -40,6 +42,15 @@ export async function UserInput(skip: boolean = false) {
       name: "useDB",
       message: "Do you want to use database?",
       default: false,
+    },
+    {
+      type: "select",
+      name: "framework",
+      message: "Which framework you want to use?",
+      choices: [
+        { name: "Express", value: "express" },
+      ],
+      default: "express",
     },
     {
       type: "select",

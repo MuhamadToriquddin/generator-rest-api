@@ -30,7 +30,7 @@ export async function Main() {
       console.log(answers);
 
       // Generate structure
-      GenerateStructure();
+      GenerateStructure(answers.framework);
 
       // Initialize package.json, tsconfig.json and default dependencies
       ConfigRESTAPI();
