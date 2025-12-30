@@ -1,7 +1,7 @@
 import { RunCommand } from "./runcommand.js";
 
-export async function ConfigRESTAPI() {
-  const tasks = [
+export async function ConfigRESTAPI(framework: string) {
+  const expressTasks = [
     {
       label: "Initialize package.json",
       command: "npm",
@@ -10,7 +10,15 @@ export async function ConfigRESTAPI() {
     {
       label: "Setup scripts",
       command: "npm",
-      args: ["pkg", "set",`type="module"` ,`scripts.dev="tsx src/server.ts"`,`scripts.start="node dist/main.js"`,`scripts.build="tsc"`,`scripts.rebuild="rimraf dist && tsc"`],
+      args: [
+        "pkg",
+        "set",
+        `type="module"`,
+        `scripts.dev="tsx src/server.ts"`,
+        `scripts.start="node dist/main.js"`,
+        `scripts.build="tsc"`,
+        `scripts.rebuild="rimraf dist && tsc"`,
+      ],
     },
     {
       label: "Install default dependency for REST API",
@@ -26,7 +34,7 @@ export async function ConfigRESTAPI() {
         "typescript",
         "tsx",
         "zod",
-        "rimraf"
+        "rimraf",
       ],
     },
     {
@@ -39,25 +47,39 @@ export async function ConfigRESTAPI() {
         "@types/cors",
         "@types/helmet",
         "@types/morgan",
-        "@types/node"
+        "@types/node",
       ],
     },
     {
       label: "Initialize tsconfig.json",
       command: "npx",
-      args: ["tsc", "--init", "--outDir", "./dist", "--rootDir", "./src", "--verbatimModuleSyntax", "false"],
+      args: [
+        "tsc",
+        "--init",
+        "--outDir",
+        "./dist",
+        "--rootDir",
+        "./src",
+        "--verbatimModuleSyntax",
+        "false",
+      ],
     },
-  
   ];
 
-  for (const task of tasks) {
-    try {
-      console.log(`[PROCESS] ${task.label}`);
-      await RunCommand(task.command, task.args);
-      console.log(`[SUCCESS] ${task.label}`);
-    } catch (error) {
-      console.error(`[FAILED] ${task.label}`);
-      console.error(error);
-    }
+  switch (framework) {
+    case "express":
+      for (const task of expressTasks) {
+        try {
+          console.log(`[PROCESS] ${task.label}`);
+          await RunCommand(task.command, task.args);
+          console.log(`[SUCCESS] ${task.label}`);
+        } catch (e) {
+          if (e instanceof Error){
+            throw new Error(`[FAILED] ${task.label} : ${e.message}`)
+          }
+          throw new Error(`[FAILED] ${task.label}`)
+        }
+      }
+      break;
   }
 }

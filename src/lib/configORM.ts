@@ -8,7 +8,7 @@ export async function ConfigDatabaseDriver(db: string) {
       args: ["install", "pg"],
     },
     {
-      label: "Initialize database driver for Mysql",
+      label: "Initialize database driver types for Mysql",
       command: "npm",
       args: ["install", "@/types/pg"],
     },
@@ -29,9 +29,11 @@ export async function ConfigDatabaseDriver(db: string) {
           console.log(`[PROCESS] ${task.label}`);
           await RunCommand(task.command, task.args);
           console.log(`[SUCCESS] ${task.label}`);
-        } catch (error) {
-          console.error(`[FAILED] ${task.label}`);
-          console.error(error);
+        } catch (e) {
+          if (e instanceof Error){
+            throw new Error(`[FAILED] ${task.label} : ${e.message}`);  
+          }
+          throw new Error(`[FAILED] ${task.label}`);
         }
       }
     break;
@@ -42,9 +44,11 @@ export async function ConfigDatabaseDriver(db: string) {
           console.log(`[PROCESS] ${task.label}`);
           await RunCommand(task.command, task.args);
           console.log(`[SUCCESS] ${task.label}`);
-        } catch (error) {
-          console.error(`[FAILED] ${task.label}`);
-          console.error(error);
+        } catch (e) {
+          if (e instanceof Error){
+            throw new Error(`[FAILED] ${task.label} : ${e.message}`);  
+          }
+          throw new Error(`[FAILED] ${task.label}`);
         }
       }
     break;

@@ -19,36 +19,40 @@ export async function Main() {
     .description("cli tools for creating template express rest api")
     .version("1.0.0");
 
-  // create command
-  program
-    .command("init-rest-api")
-    .description("passing to question section")
-    .option("-y,--yes", "use default value to all questions")
-    .action(async (options: commandProps) => {
-      // Take user requirements
-      const answers = await UserInput(options.yes);
-      console.log(answers);
+  try {
+    // create command
+    program
+      .command("init-rest-api")
+      .description("passing to question section")
+      .option("-y,--yes", "use default value to all questions")
+      .action(async (options: commandProps) => {
+        // Take user requirements
+        const answers = await UserInput(options.yes);
+        console.log(answers);
 
-      // Generate structure
-      GenerateStructure(answers.framework);
+        // Generate structure
+        GenerateStructure(answers.framework);
 
-      // Initialize package.json, tsconfig.json and default dependencies
-      ConfigRESTAPI();
+        // Initialize package.json, tsconfig.json and default dependencies
+        ConfigRESTAPI(answers.framework);
 
-      // Config database driver (if used)
-      if (answers.db) {
-      ConfigDatabaseDriver(answers.db);
-      if (answers.orm){
-        // Config ORM (if used)
-        
-      }
-      
-      }
-
-      
-      
-    });
-  program.parse();
+        // Config database driver (if used)
+        if (answers.db) {
+          ConfigDatabaseDriver(answers.db);
+          if (answers.orm) {
+            // Config ORM (if used)
+          }
+        }
+      });
+    program.parse();
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.message);
+    } else {
+      console.error("An unexpected error occurred.");
+    }
+    process.exit(1)
+  }
 }
 
 Main();
