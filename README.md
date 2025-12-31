@@ -45,35 +45,11 @@ npm link
 
 ## How To Use
 
-- Using npx (no need to do local instalation):
-
-1. Run cli tool in the terminal with this command:
+- Run cli tool in the terminal with this command:
 
 ```bash
-npx forge init-rest-api
+forge init-rest-api
 ```
-
-- Using in local:
-
-1. Run cli tool in the terminal with this command:
-
-```bash
-npx forge init-rest-api
-```
-
-## Tujuan Project
-
-Project ini dibuat untuk:
-- Meningkatkan produktivitas developer backend
-- Menyediakan standar awal pengembangan REST API
-- Mengurangi human error pada setup awal project
-
-## Roadmap
-
-- [ ] Role-based access control
-- [ ] API documentation (Swagger / OpenAPI)
-- [ ] Custom template generator
-- [ ] Plugin system
 
 ## Contribution
 
