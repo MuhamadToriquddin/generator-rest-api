@@ -66,20 +66,19 @@ export async function UserInput(skip: boolean = false) {
     {
       type: "confirm",
       name: "useORM",
-      when: (answers) => answers.useDB == true,
+      when: (answers) => answers.useDB == true && answers.db != "mongodb",
       message: "Do you want to use ORM?",
       default: false,
     },
     {
       type: "select",
       name: "orm",
-      when: (answers) => answers.useORM == true,
+      when: (answers) => answers.useORM == true  && answers.db != "mongodb",
       message: "Which database you want?",
       choices: (answers) => {
         if (answers.framework == "express") {
           return [
             { name: "Prisma", value: "prisma" },
-            { name: "Drizzle", value: "drizzle" },
             { name: "Sequelize", value: "sequelize" },
           ];
         }

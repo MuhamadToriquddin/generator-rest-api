@@ -11,7 +11,7 @@
     "rebuild": "rimraf dist && tsc && npx copyfiles -u 0 templates/**/* dist/ && npm link"
   },
   "bin": {
-    "generate": "./dist/main.js"
+    "forge": "./dist/main.js"
   },
   "repository": {
     "type": "git",

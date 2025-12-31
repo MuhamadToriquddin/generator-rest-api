@@ -1,24 +1,32 @@
 import { RunCommand } from "./runcommand.js";
 
-export async function ConfigDatabaseDriver(db: string) {
+export async function ConfigDatabaseDriver(db: string, framework: string) {
   const tasksPostgres = [
     {
       label: "Initialize database driver for Postgresql",
-      command: "npm",
-      args: ["install", "pg", "pg-hstore"],
+      commandExpress: "npm",
+      argsExpress: ["install", "pg", "pg-hstore"],
     },
     {
       label: "Initialize database driver types for Postgresql",
-      command: "npm",
-      args: ["install", "-D", "@types/pg"],
+      commandExpress: "npm",
+      argsExpress: ["install", "-D", "@types/pg"],
     },
   ];
 
   const tasksMysql = [
     {
       label: "Initialize database driver for Mysql",
-      command: "npm",
-      args: ["install", "mysql2"],
+      commandExpress: "npm",
+      argsExpress: ["install", "mysql2"],
+    },
+  ];
+
+  const tasksMongoDB = [
+    {
+      label: "Initialize database driver for MongoDB",
+      commandExpress: "npm",
+      argsExpress: ["install", "mongodb"],
     },
   ];
 
@@ -27,26 +35,51 @@ export async function ConfigDatabaseDriver(db: string) {
       for (const task of tasksPostgres) {
         try {
           console.log(`[PROCESS] ${task.label}`);
-          await RunCommand(task.command, task.args);
+          if (framework == "express") {
+            await RunCommand(task.commandExpress, task.argsExpress);
+          } else {
+            console.error(`[FAILED] Framework ${framework} not in the list`);
+          }
           console.log(`[SUCCESS] ${task.label}`);
         } catch (error) {
           console.error(`[FAILED] ${task.label}`);
           console.error(error);
         }
       }
-    break;
-    
+      break;
+
     case "mysql":
       for (const task of tasksMysql) {
         try {
           console.log(`[PROCESS] ${task.label}`);
-          await RunCommand(task.command, task.args);
+          if (framework == "express") {
+            await RunCommand(task.commandExpress, task.argsExpress);
+          } else {
+            console.error(`[FAILED] Framework ${framework} not in the list`);
+          }
           console.log(`[SUCCESS] ${task.label}`);
         } catch (error) {
           console.error(`[FAILED] ${task.label}`);
           console.error(error);
         }
       }
-    break;
+      break;
+
+    case "mongodb":
+      for (const task of tasksMongoDB) {
+        try {
+          console.log(`[PROCESS] ${task.label}`);
+          if (framework == "express") {
+            await RunCommand(task.commandExpress, task.argsExpress);
+          } else {
+            console.error(`[FAILED] Framework ${framework} not in the list`);
+          }
+          console.log(`[SUCCESS] ${task.label}`);
+        } catch (error) {
+          console.error(`[FAILED] ${task.label}`);
+          console.error(error);
+        }
+      }
+      break;
   }
 }

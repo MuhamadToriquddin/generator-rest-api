@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { UserInput } from "./lib/input-user.js";
+import { UserInput } from "./lib/userInput.js";
 import { Command } from "commander";
 import { GenerateStructure } from "./lib/generateStructure.js";
 import { ConfigRESTAPI } from "./lib/configRESTAPI.js";
@@ -38,7 +38,7 @@ export async function Main() {
 
         // Config database driver (if used)
         if (answers.db) {
-          await ConfigDatabaseDriver(answers.db);
+          await ConfigDatabaseDriver(answers.db,answers.framework);
           if (answers.orm) {
             // Config ORM (if used)
             await ConfigORM(answers.orm)
